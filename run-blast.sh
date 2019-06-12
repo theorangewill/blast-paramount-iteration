@@ -31,7 +31,7 @@ do
 	echo "*"
 	for i in {1..5}
 	do
-		blastn -query ref_seq/entrada00.fa -db ref_seq/refseq_rna.00 -out saida.out -max_target_seqs 2 -task blastn -num_threads $threads
+		blastn -query ref_seq/entrada00.fa -db ref_seq/refseq_rna.00 -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 2 -task blastn -num_threads $threads
 	done
 	echo "*"
 done
@@ -40,10 +40,19 @@ if [ $NUMEROCORES -ge 48 ]; then
 	echo "		EXPERIMENTO COM " $NUMEROCORES " THREADS"
 	echo "*"
 	for i in {1..5}
-	do
-		blastn -query ref_seq/entrada00.fa -db ref_seq/refseq_rna.00 -out saida.out -max_target_seqs 2 -task blastn -num_threads $threads
+	do	
+		blastn -query ref_seq/entrada00.fa -db ref_seq/refseq_rna.00 -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 2 -task blastn -num_threads $threads
 	done
 	echo "*"
 fi
 
+	cd c++
+	make -j PARAMOUNTITERATION=0
+	make install
+	cd ..
+	/usr/bin/time -p blastn -query ref_seq/entrada00.fa -db ref_seq/refseq_rna.00 -out ${j:0:9}-saida_final.out -max_target_seqs 2 -task blastn -num_threads $NUMEROCORES
 done
+
+
+
+
