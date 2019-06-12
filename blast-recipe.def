@@ -16,12 +16,3 @@ From: ubuntu:latest
 	make install #1> /dev/null 2> /dev/null
 	cd ..
 
-%runscript
-	mkdir refseq
-	cd refseq
-        wget https://ftp.ncbi.nlm.nih.gov/blast/db/refseq_rna.00.tar.gz
-	tar xvf refseq_rna.00.tar.gz
-	rm refseq_rna.00.tar.gz
-	wget https://ftp.ncbi.nlm.nih.gov/blast/db/refseq_rna.01.tar.gz
-	tar xvf refseq_rna.01.tar.gz
-	rm refseq_rna.01.tar.gz

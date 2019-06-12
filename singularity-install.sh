@@ -34,3 +34,16 @@ cd ~/blast-paramount-iteration
 echo "CRIANDO IMAGEM"
 tar xf ncbi-blast-2.9.0+-src.tar.xz
 sudo singularity build --sandbox blast-imagem.img blast-recipe.def
+
+#BAIXANDO BASES DE DADOS
+echo "BAIXANDO BASES DE DADOS"
+mkdir refseq
+cd refseq
+wget https://ftp.ncbi.nlm.nih.gov/blast/db/refseq_rna.00.tar.gz
+tar xf refseq_rna.00.tar.gz
+rm refseq_rna.00.tar.gz
+wget https://ftp.ncbi.nlm.nih.gov/blast/db/refseq_rna.01.tar.gz
+tar xf refseq_rna.01.tar.gz
+rm refseq_rna.01.tar.gz
+cd ..
+
