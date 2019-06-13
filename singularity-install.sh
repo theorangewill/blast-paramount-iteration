@@ -7,12 +7,14 @@ sudo apt-get update && \
   libssl-dev uuid-dev libgpgme11-dev libseccomp-dev pkg-config squashfs-tools
 
 echo "INSTALANDO GOLANG"
-export VERSION=1.11.4 OS=linux ARCH=amd64  # change this as you need
+VERSION=1.11.4
+OS=linux
+ARCH=amd64
+export GOPATH=${HOME}/go >> ~/.bashrc
+export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin >> ~/.bashrc
+source ~/.bashrc
 wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz https://dl.google.com/go/go${VERSION}.${OS}-${ARCH}.tar.gz && \
 sudo tar -C /usr/local -xzf /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz
-  echo 'export GOPATH=${HOME}/go' >> ~/.bashrc && \
-  echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && \
-  source ~/.bashrc
 curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh |
   sh -s -- -b $(go env GOPATH)/bin v1.15.0
 
