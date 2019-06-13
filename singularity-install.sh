@@ -10,8 +10,8 @@ echo "INSTALANDO GOLANG"
 VERSION=1.11.4
 OS=linux
 ARCH=amd64
-export GOPATH=${HOME}/go >> ~/.bashrc
-export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin >> ~/.bashrc
+echo 'export GOPATH=${HOME}/go' >> ~/.bashrc
+echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc
 source ~/.bashrc
 wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz https://dl.google.com/go/go${VERSION}.${OS}-${ARCH}.tar.gz && \
 sudo tar -C /usr/local -xzf /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz
