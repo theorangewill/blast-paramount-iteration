@@ -2,7 +2,7 @@
 BLAST (Basic Local Alignment Search Tool) é um algoritmo capaz de encontrar regiões com similaridade local para sequências biológicas. Para isso, ele compara sequências nucleotídicas ou proteicas para identificar semelhanças em diferentes databases e calcular a significância estatística dos matches encontrados. Pode ser usado para encontrar relações evolutivas entre sequências, assim como ajudar a identificar membros de famílias genéticas. A NCBI fornece acesso a um conjunto de programas BLAST, por exemplo blastn, que trabalha com sequências de DNA. A aplicação pode ser encontrada nos arquivos da NCBI e é paralelizada usando multithreading.
 ## Trabalho
 Neste respositório há o código da aplicação blastn modificado para realizar o paramount iteration.
-Na compilação é possível indicar o número de iterações a serem realizadas pela técnica com a definição da variável global PARAMOUNTITERATION.
+Na compilação é possível indicar o número de iterações a serem realizadas pela técnica com a definição da variável global PARAMOUNTITERATION (se 0, então irá executar até o fim).
     
     make -j PARAMOUNTITERATION=5
 
@@ -14,8 +14,8 @@ Aqui há dois scripts e uma receita para o Singularity criar uma imagem de conta
 # Rodando os experimentos
 É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 16GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
 
-Para cada ambiente computacional XX, deve-se clonar este repositório e executar:
+Para cada ambiente computacional deve-se clonar este repositório e executar:
 
     ./singularity-install.sh
     sudo singularity shell blast-imagem.img 
-    ./run-blast.sh > run-blast.XX.out
+    ./run-blast.sh
