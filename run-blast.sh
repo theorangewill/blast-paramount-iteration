@@ -20,7 +20,7 @@ echo "NUMERO DE CORES: " $NUMEROCORES
 
 echo "RODAR ALGORITMO"
 k=0
-for j in {$ENTRADA0,$ENTRADA1}
+for j in $ENTRADA0 $ENTRADA1
 do
 echo "	EXPERIMENTO COM " $j
 
@@ -45,7 +45,6 @@ if [ $NUMEROCORES -ge 48 ]; then
 	echo "*"
 fi
 
-	cd c++
 	make -j PARAMOUNTITERATION=0
 	make install
 	cd ..
