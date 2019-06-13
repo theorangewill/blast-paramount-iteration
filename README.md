@@ -12,9 +12,9 @@ Aqui há dois scripts e uma receita para o Singularity criar uma imagem de conta
     - run-blast.sh executa os experimentos, variando o número de threads. Cada execução é realizada 5 vezes.
     
 # Rodando os experimentos
-É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 16GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
+É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 30GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
 
-Para cada ambiente computacional XX, deve-se clonar este repositório e executar os comandos seguintes.
+Deve-se clonar este repositório e executar os comandos seguintes.
 
 ## Instalando Singularity
 
@@ -67,7 +67,7 @@ Para cada ambiente computacional XX, deve-se clonar este repositório e executar
 ## Executando o script
 
     sudo singularity shell blast-imagem.img 
-    ./run-blast.sh > run-blast.XX.out
+    ./run-blast.sh
     
     
     
