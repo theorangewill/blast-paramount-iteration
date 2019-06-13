@@ -16,6 +16,6 @@ Aqui há dois scripts e uma receita para o Singularity criar uma imagem de conta
 
 Para cada ambiente computacional XX, deve-se clonar este repositório e executar:
 
-    ./singularitu-install.sh
+    ./singularity-install.sh
     sudo singularity shell blast-imagem.img 
     ./run-blast.sh > run-blast.XX.out
