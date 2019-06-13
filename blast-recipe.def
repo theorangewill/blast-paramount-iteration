@@ -13,5 +13,8 @@ From: ubuntu:latest
         ./configure
         make -j PARAMOUNTITERATION=5
 	    make install
+        mv /usr/local/bin/blastn /usr/local/bin/blastnpi
+        make -j PARAMOUNTITERATION=10
+	    make install
 	    cd ..
 
