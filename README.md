@@ -10,7 +10,9 @@ Aqui há dois scripts e uma receita para o Singularity criar uma imagem de conta
     - singularity-install.sh é responsável por instalar o Singularity e seus pré-requisitos, criar a imagem e baixar as bases de dados refseq\_rna.00 e refseq\_rna.01.
     - blast-recipe é a receita da imagem, onde é instalada as requisições para o BLAST e a também a própria ferramenta com PARAMOUNTITERATION=5
     - run-blast.sh executa os experimentos, variando o número de threads. Cada execução é realizada 5 vezes.
-    
+## Receita
+A receita desenvolvida compila duas versões do blastn. Uma com PARAMOUNTITERATION=5 (blastnpi) e outra com PARAMOUNTITERATION=0 (blastn)
+
 # Rodando os experimentos
 É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 16GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
 

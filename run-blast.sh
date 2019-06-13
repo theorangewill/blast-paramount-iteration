@@ -30,7 +30,7 @@ do
 	echo "*"
 	for i in {1..5}
 	do
-		blastn -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 5 -task blastn -num_threads $THREADS
+		blastnpi -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 5 -task blastn -num_threads $THREADS
 	done
 	echo "*"
 done
@@ -40,14 +40,11 @@ if [ $NUMEROCORES -ge 48 ]; then
 	echo "*"
 	for i in {1..5}
 	do	
-		blastn -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 5 -task blastn -num_threads $THREADS
+		blastnpi -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 5 -task blastn -num_threads $THREADS
 	done
 	echo "*"
 fi
 
-	make -j PARAMOUNTITERATION=0
-	make install
-	cd ..
 	/usr/bin/time -p blastn -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_final.out -max_target_seqs 5 -task blastn -num_threads $NUMEROCORES
 	k=k+1
 done

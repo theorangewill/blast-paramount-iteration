@@ -14,9 +14,7 @@ From: ubuntu:latest
         make -j PARAMOUNTITERATION=5
 	    make install
         mv /usr/local/bin/blastn /usr/local/bin/blastnpi
-        cp /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app.cpp /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app2.cpp
-        rm /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app.cpp
-        mv /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app2.cpp /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app.cpp
+        touch -m /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app.cpp
         ./configure
         make -j PARAMOUNTITERATION=0
 	    make install
