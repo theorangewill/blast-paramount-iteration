@@ -4,9 +4,9 @@
 echo "GERANDO ENTRADAS"
 ENTRADA0=refseq/entrada00.fa
 ENTRADA1=refseq/entrada01.fa
-#blastdbcmd -db refseq/refseq_rna.00 -entry all -out $ENTRADA0
+blastdbcmd -db refseq/refseq_rna.00 -entry all -out $ENTRADA0
 echo "		" $ENTRADA0 " CRIADA"
-#blastdbcmd -db refseq/refseq_rna.01 -entry all -out $ENTRADA1
+blastdbcmd -db refseq/refseq_rna.01 -entry all -out $ENTRADA1
 echo "		" $ENTRADA1 " CRIADA"
 
 # RODAR OS EXPERIMENTOS

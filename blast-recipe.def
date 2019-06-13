@@ -2,17 +2,16 @@ Bootstrap: docker
 From: ubuntu:latest
 
 %files
-	ncbi-blast-2.9.0+-src.tar.xz 
+	    ncbi-blast-2.9.0+-src.tar.xz 
 
 %post
         apt update -qq
-	apt-get install -y build-essential wget make gcc cpio #> /dev/null
-        #wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.9.0+-src.tar.gz
+	    apt-get install -y build-essential wget make gcc cpio
         tar xf ncbi-blast-2.9.0+-src.tar.xz
         rm ncbi-blast-2.9.0+-src.tar.xz
         cd ncbi-blast-2.9.0+-src/c++/
-        ./configure # 1> /dev/null 2> /dev/null
-        make -j PARAMOUNTITERATION=10 #1> /dev/null 2> /dev/null
-	make install #1> /dev/null 2> /dev/null
-	cd ..
+        ./configure
+        make -j PARAMOUNTITERATION=5
+	    make install
+	    cd ..
 
