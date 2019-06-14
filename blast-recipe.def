@@ -12,11 +12,10 @@ From: ubuntu:latest
         cd ncbi-blast-2.9.0+-src/c++/
         ./configure
         make -j PARAMOUNTITERATION=5
-	    make install
+	make install
         mv /usr/local/bin/blastn /usr/local/bin/blastnpi
         touch -m /ncbi-blast-2.9.0+-src/c++/src/app/blast/blastn_app.cpp
-        ./configure
-        make -j PARAMOUNTITERATION=0
-	    make install
-	    cd ..
+        #./configure
+        make -j PARAMOUNTITERATION=100
+	make install
 

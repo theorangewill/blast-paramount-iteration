@@ -11,7 +11,7 @@ Aqui há dois scripts e uma receita para o Singularity criar uma imagem de conta
     - blast-recipe é a receita da imagem, onde é instalada as requisições para o BLAST e a também a própria ferramenta com PARAMOUNTITERATION=5
     - run-blast.sh executa os experimentos, variando o número de threads. Cada execução é realizada 5 vezes.
 ## Receita
-A receita desenvolvida compila duas versões do blastn. Uma com PARAMOUNTITERATION=5 (blastnpi) e outra com PARAMOUNTITERATION=0 (blastn)
+A receita desenvolvida compila duas versões do blastn. Uma com PARAMOUNTITERATION=5 (blastnpi) e outra com PARAMOUNTITERATION=100 (blastn)
 
 ## Script
 O script varia o número de threads em potência de dois até o limite de núcleos presentes na máquina. Para as máquinas que possuem número de núcleos superior a 48, é executado também para o número de threads igual ao de núcleos. Cada execução é realizada cinco vezes. 
