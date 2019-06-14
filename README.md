@@ -13,8 +13,11 @@ Aqui há dois scripts e uma receita para o Singularity criar uma imagem de conta
 ## Receita
 A receita desenvolvida compila duas versões do blastn. Uma com PARAMOUNTITERATION=5 (blastnpi) e outra com PARAMOUNTITERATION=0 (blastn)
 
+## Script
+O script varia o número de threads em potência de dois até o limite de núcleos presentes na máquina. Para as máquinas que possuem número de núcleos superior a 48, é executado também para o número de threads igual ao de núcleos. Cada execução é realizada cinco vezes. 
+
 # Rodando os experimentos
-É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 16GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
+É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 30GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
 
 Para cada ambiente computacional deve-se clonar este repositório e executar:
 
