@@ -44,11 +44,11 @@ if [ $NUMEROCORES -ge 48 ]; then
 	done
 	echo "*"
 fi
-
+	echo "		EXPERIMENTO FINAL"
 	for i in {1..5}
 	do
 		blastn -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_final_$i.out -max_target_seqs 5 -task blastn -num_threads $NUMEROCORES
-	echo
+	done
 	k=k+1
 done
 
