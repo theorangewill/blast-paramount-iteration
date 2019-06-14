@@ -49,7 +49,8 @@ fi
 	do
 		blastn -query $j -db refseq/refseq_rna.0$k -out ${j:0:9}-saida_final_$i.out -max_target_seqs 5 -task blastn -num_threads $NUMEROCORES
 	done
-	k=k+1
+	k=$(($k+1))
+	echo $k
 done
 
 
