@@ -68,27 +68,21 @@ melhormaquina = []
 for maquina in maquinas:
     melhorentrada = []
     for entrada in maquina[1]:
-        #plt.plot( maquina[1][0][1][-1][2], label="100 iteracoes", color=colors[0] )
-        #plt.plot( maquina[1][0][1][-2][2], label="5 iteracoes", color=colors[1] )
-        #plt.title("Execucao para " + entrada[0] + " na instancia " + maquina[0])
-        #plt.legend(loc='upper left')
-        #plt.xlabel('iteracoes')
-        #plt.ylabel('tempo(s)')
-        #plt.show()
-        #plt.savefig(maquina[0]+'-'+entrada[0]+'-pi100.png')
-
-
         melhortempo = inf
+        execucaotempo = []
+        execucaothreads = []
         for experimentos, color, it in zip(entrada[1][:-1],colors, iteracoes):
             if melhortempo > experimentos[1]:
                 melhortempo = experimentos[1]
-            plt.plot( iteracoes, experimentos[2], 'o-', color=color, label=experimentos[0] + " threads")
-            for it in range(len(experimentos[2])):
-                plt.annotate("{:.2f}".format(experimentos[2][it]), (iteracoes[it], experimentos[2][it]))
-        plt.legend(loc='upper left')
-        plt.xlabel('iteracoes')
+            execucaotempo.append(experimentos[1])
+            execucaothreads.append(experimentos[0])
+        plt.plot(execucaothreads, execucaotempo, 'o-', color=colors[0])
+            #plt.plot( iteracoes, experimentos[2], 'o-', color=color, label=experimentos[0] + " threads")
+        for it in range(len(execucaotempo)):
+            plt.annotate("{:.2f}".format(execucaotempo[it]), (execucaothreads[it], execucaotempo[it]))
+        plt.xlabel('numero de threads')
         plt.ylabel('tempo(s)')
-        plt.title("Execucao de 5 iteracoes para " + entrada[0] + "\n na instancia " + maquina[0] + " com diferentes numero de threads")
+        plt.title("Tempo de execucao de 5 iteracoes para " + entrada[0] + "\n na instancia " + maquina[0] + " com diferentes numero de threads")
         plt.show()
         plt.savefig(maquina[0]+'-'+entrada[0]+'-pi5.png')
         print(maquina[0]+'-'+entrada[0]+'-pi5.png')
@@ -100,22 +94,21 @@ for maquina in maquinas:
     melhormaquina.append(melhorentrada)
 
 for entrada in range(len(melhormaquina[0])):
-    #for maquina,color in zip(melhormaquina,colors):
-    #    plt.scatter( maquina[entrada][2], maquina[entrada][3], color=color )
-    #    plt.annotate( maquina[entrada][0], (maquina[entrada][2], maquina[entrada][3]) )
-    #plt.xlabel('custo(USD)')
-    #plt.ylabel('tempo(s)')
-    #plt.title("Custo-beneficio das instancias para " + maquinas[1][1][entrada][0])
-    #plt.show()
-    #plt.savefig(maquinas[1][entrada][0][0]+'-cb.png')
-    #print(maquinas[1][1][entrada][0]+'-cb.png')
-    #for maquina,color in zip(maquinas,colors):
-    #    plt.plot( maquina[1][entrada][1][-1][2], label=maquina[0], color=color )
-    plt.title("Tempo de execução de 100 iterações para " + maquinas[1][1][entrada][0])
+    for maquina,color in zip(melhormaquina,colors):
+        plt.scatter( maquina[entrada][2], maquina[entrada][3], color=color )
+        plt.annotate( maquina[entrada][0], (maquina[entrada][2], maquina[entrada][3]) )
+    plt.xlabel('custo(USD)')
+    plt.ylabel('tempo(s)')
+    plt.title("Custo-beneficio das instancias para " + maquinas[1][1][entrada][0])
+    plt.show()
+    plt.savefig(maquinas[1][entrada][0][0]+'-cb.png')
+    print(maquinas[1][1][entrada][0]+'-cb.png')
+    for maquina,color in zip(maquinas,colors):
+        plt.plot( maquina[1][entrada][1][-1][2], label=maquina[0], color=color )
+    plt.title("Tempo de execucao de 100 iteracoes para " + maquinas[1][1][entrada][0])
     plt.legend(loc='upper left')
     plt.xlabel('iteracoes')
     plt.ylabel('tempo(s)')
     plt.show()
     plt.savefig(maquinas[1][1][entrada][0]+'-pi100.png')
     print(maquinas[1][1][entrada][0]+'-pi100.png')
-
