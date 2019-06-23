@@ -2,6 +2,7 @@
 
 #INSTALAR SINGULARITY
 echo "INSTALANDO DEPENDENCIAS"
+DIRETORIO=$(pwd)
 sudo apt-get update && \
   sudo apt-get install -y build-essential \
   libssl-dev uuid-dev libgpgme11-dev libseccomp-dev pkg-config squashfs-tools
@@ -30,7 +31,7 @@ cd ${GOPATH}/src/github.com/sylabs/singularity && \
   make && \
   sudo make install
 singularity version
-cd ~/blast-paramount-iteration
+cd ${DIRETORIO}
 
 #CRIAR IMAGEM A PARTIR DA RECIPE
 echo "CRIANDO IMAGEM"
@@ -39,13 +40,40 @@ sudo singularity build --sandbox blast-imagem.img blast-recipe.def
 
 #BAIXANDO BASES DE DADOS
 echo "BAIXANDO BASES DE DADOS"
-mkdir refseq
-cd refseq
-wget https://ftp.ncbi.nlm.nih.gov/blast/db/refseq_rna.00.tar.gz
-tar xf refseq_rna.00.tar.gz
-rm refseq_rna.00.tar.gz
-wget https://ftp.ncbi.nlm.nih.gov/blast/db/refseq_rna.01.tar.gz
-tar xf refseq_rna.01.tar.gz
-rm refseq_rna.01.tar.gz
+mkdir bd
+cd bd
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.1.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.2.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.3.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.4.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.5.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.6.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.7.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.8.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.9.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.10.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.11.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.12.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.13.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.14.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.15.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.16.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.17.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.18.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.19.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.20.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.21.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.X.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.Y.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz
+gunzip *.gz
+cat *.fa > ../human_genoma_grande.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.1.fa >> ../human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.2.fa >> ../human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.3.fa >> ../human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.4.fa >> ../human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.5.fa >> ../human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.6.fa >> ../human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.7.fa >> ../human_genoma_pequeno.fa
 cd ..
-
