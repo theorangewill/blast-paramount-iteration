@@ -36,12 +36,12 @@ cd ${DIRETORIO}
 #CRIAR IMAGEM A PARTIR DA RECIPE
 echo "CRIANDO IMAGEM"
 tar xf ncbi-blast-2.9.0+-src.tar.xz
-sudo singularity build --sandbox blast-imagem.img blast-recipe.def
+sudo singularity build blast-imagem.img blast-recipe.def
 
 #BAIXANDO BASES DE DADOS
 echo "BAIXANDO BASES DE DADOS"
-mkdir bd
-cd bd
+mkdir entradas
+cd entradas
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.1.fa.gz
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.2.fa.gz
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.3.fa.gz
@@ -68,14 +68,14 @@ wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GR
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.Y.fa.gz
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz
 gunzip *.gz
-cat *.fa > ../human_genoma_grande.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.1.fa >> ../human_genoma_pequeno.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.2.fa >> ../human_genoma_pequeno.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.3.fa >> ../human_genoma_pequeno.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.4.fa >> ../human_genoma_pequeno.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.5.fa >> ../human_genoma_pequeno.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.6.fa >> ../human_genoma_pequeno.fa
-cat Homo_sapiens.GRCh38.dna.chromosome.7.fa >> ../human_genoma_pequeno.fa
+cat *.fa > human_genoma_grande.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.1.fa >> human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.2.fa >> human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.3.fa >> human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.4.fa >> human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.5.fa >> human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.6.fa >> human_genoma_pequeno.fa
+cat Homo_sapiens.GRCh38.dna.chromosome.7.fa >> human_genoma_pequeno.fa
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz
 gunzip Homo_sapiens.GRCh38.cds.all.fa.gz
 cd ..

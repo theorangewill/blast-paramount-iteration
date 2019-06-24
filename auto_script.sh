@@ -15,9 +15,8 @@ mkdir results
 TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
 FILE=results/$TYPE.txt
 sudo ./singularity-install.sh
-sudo singularity shell blast-imagem.img
-./run-blast.sh > $FILE
+sudo singularity exec blast-imagem.img ./run-blast.sh > $FILE
 git pull
 git add $FILE
 git commit -m "$TYPE"
-git push && aws ec2 terminate-instances --instance-ids $IID
+git push# && aws ec2 terminate-instances --instance-ids $IID
