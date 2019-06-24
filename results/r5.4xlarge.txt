@@ -1,3 +1,21 @@
+
+
+Building a new DB, current time: 06/24/2019 04:45:02
+New DB name:   /home/ubuntu/blast-paramount-iteration/human_genoma_pequeno
+New DB title:  entradas/human_genoma_pequeno.fa
+Sequence type: Nucleotide
+Keep MBits: T
+Maximum file size: 1000000000B
+Adding sequences from FASTA; added 7 sequences in 11.8522 seconds.
+
+
+Building a new DB, current time: 06/24/2019 04:45:14
+New DB name:   /home/ubuntu/blast-paramount-iteration/human_genoma_grande
+New DB title:  entradas/human_genoma_grande.fa
+Sequence type: Nucleotide
+Keep MBits: T
+Maximum file size: 1000000000B
+Adding sequences from FASTA; added 25 sequences in 26.3556 seconds.
 16
 &
 entradas/human_genoma_pequeno
