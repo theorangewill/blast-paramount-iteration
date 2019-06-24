@@ -19,4 +19,4 @@ sudo singularity exec blast-imagem.img ./run-blast.sh > $FILE
 git pull
 git add $FILE
 git commit -m "$TYPE"
-git push# && aws ec2 terminate-instances --instance-ids $IID
+git push && aws ec2 terminate-instances --instance-ids $IID
