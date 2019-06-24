@@ -3,9 +3,9 @@
 # GERANDO DBS A PARTIR DE DUAS SEQUENCIAS
 DBPEQUENO=entradas/human_genoma_pequeno
 DBGRANDE=entradas/human_genoma_grande
-makeblastdb -in $DBPEQUENO.fa -parse_seqids -dbtype nucl -out human_genoma_pequeno
-makeblastdb -in $DBGRANDE.fa -parse_seqids -dbtype nucl -out human_genoma_grande
-ENTRADA=Homo_sapiens.GRCh38.cds.all.fa.gz
+makeblastdb -in $DBPEQUENO.fa -parse_seqids -dbtype nucl -out entradas/human_genoma_pequeno
+makeblastdb -in $DBGRANDE.fa -parse_seqids -dbtype nucl -out entradas/human_genoma_grande
+ENTRADA=entradas/Homo_sapiens.GRCh38.cds.all.fa
 
 # RODAR OS EXPERIMENTOS
 NUMEROCORES=2
@@ -23,7 +23,7 @@ echo "*"
 	echo $THREADS
 	for i in {1..5}
 	do
-		blastnpi -query $ENTRADA -db $j -out ${j:0:9}-saida_$THREADS_$i.out -max_target_seqs 5 -task blastn -num_threads $THREADS
+		blastnpi -query $ENTRADA -db $j -out $j-saida_$THREADS_$i.out -max_target_seqs 5 -task blastn -num_threads $THREADS
 	done
 done
 
