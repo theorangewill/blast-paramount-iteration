@@ -3,8 +3,8 @@
 #INSTALAR SINGULARITY
 echo "INSTALANDO DEPENDENCIAS"
 DIRETORIO=$(pwd)
-sudo apt-get update && \
-  sudo apt-get install -y build-essential \
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -qy && \
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qy build-essential \
   libssl-dev uuid-dev libgpgme11-dev libseccomp-dev pkg-config squashfs-tools
 
 echo "INSTALANDO GOLANG"
@@ -76,4 +76,6 @@ cat Homo_sapiens.GRCh38.dna.chromosome.4.fa >> ../human_genoma_pequeno.fa
 cat Homo_sapiens.GRCh38.dna.chromosome.5.fa >> ../human_genoma_pequeno.fa
 cat Homo_sapiens.GRCh38.dna.chromosome.6.fa >> ../human_genoma_pequeno.fa
 cat Homo_sapiens.GRCh38.dna.chromosome.7.fa >> ../human_genoma_pequeno.fa
+wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz
+gunzip Homo_sapiens.GRCh38.cds.all.fa.gz
 cd ..
