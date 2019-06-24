@@ -78,4 +78,5 @@ cat Homo_sapiens.GRCh38.dna.chromosome.6.fa >> human_genoma_pequeno.fa
 cat Homo_sapiens.GRCh38.dna.chromosome.7.fa >> human_genoma_pequeno.fa
 wget ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz
 gunzip Homo_sapiens.GRCh38.cds.all.fa.gz
+rm *chromosome*
 cd ..
