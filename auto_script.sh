@@ -7,7 +7,7 @@ if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
 	read akey
 	export AWS_SECRET_ACCESS_KEY=$akey
 fi
-export IID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
+IID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
 git config --global credential.helper 'cache --timeout=86400'
 git push
 
