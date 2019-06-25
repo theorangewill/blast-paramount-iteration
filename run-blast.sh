@@ -24,6 +24,8 @@ echo "*"
 	for i in {1..5}
 	do
 		blastnpi -query $ENTRADA -db $j -out saida.out -max_target_seqs 5 -task blastn -num_threads $THREADS
+		echo "-"
+		blastn -query $ENTRADA -db $j -out saida.out -max_target_seqs 5 -task blastn -num_threads $THREADS
 	done
 done
 
@@ -33,11 +35,8 @@ if [ $NUMEROCORES -ge 48 ]; then
 	for i in {1..5}
 	do
 		blastnpi -query $ENTRADA -db $j -out saida.out -max_target_seqs 5 -task blastn -num_threads $THREADS
+		echo "-"
+		blastn -query $ENTRADA -db $j -out saida.out -max_target_seqs 5 -task blastn -num_threads $THREADS
 	done
 fi
-	echo "!"
-	for i in {1..5}
-	do
-		blastn -query $ENTRADA -db $j -out saida.out -max_target_seqs 5 -task blastn -num_threads $NUMEROCORES
-	done
 done
