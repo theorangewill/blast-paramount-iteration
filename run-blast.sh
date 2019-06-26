@@ -39,4 +39,5 @@ if [ $NUMEROCORES -ge 48 ]; then
 		blastn -query $ENTRADA -db $j -out saida.out -max_target_seqs 5 -task blastn -num_threads $THREADS
 	done
 fi
+echo "!"
 done

@@ -2,69 +2,131 @@
 # -*- coding: utf-8 -*-
 import sys
 import matplotlib.pyplot as plt
+import pprint
 from numpy import inf
+
+
+experimentos = {}
+dados =  {'r5.xlarge' : {'cost':0.252},
+          'r5.2xlarge' : {'cost':0.504},
+          'r5.4xlarge' : {'cost':1.008},
+          'r5.12xlarge' : {'cost':3.024},
+          'r5.24xlarge' : {'cost':6.048}}
+instanciaV = ('r5.xlarge', 'r5.2xlarge', 'r5.4xlarge', 'r5.12xlarge', 'r5.24xlarge')
+entradaV = ('pequeno', 'grande')
+threadV = ('2', '4', '8', '16', '32', '48', '64', '96')
+tamanhoV = ('pi', 'full')
 
 if len(sys.argv) == 1:
     print "ERRO: não há arquivo para leitura"
     print("\tpython script-gerar-graficos.py <nome arquivo>")
     exit()
-maquinas = []
-for maquina in sys.argv[1:]:
-    arq = open(maquina, 'r')
-    numerocores = arq.readline()
+
+pp = pprint.PrettyPrinter(indent=2)
+instancias = []
+for arquivo in sys.argv[1:]:
+    arq = open(arquivo, 'r')
+    nomearquivo = arquivo[8:-4]
+    numerocores = arq.readline().replace("\n","")
+    experimentos[nomearquivo] = {}
+    dados[nomearquivo]['numerocores'] = int(numerocores)
     linha = " "
     entradas = []
     while linha:
         linha = arq.readline().replace("\n","")
         if linha == "&":
-            experimentos = []
-            entrada = arq.readline().replace("\n","")[:-3]
+            experimentosPI = []
+            experimentosFULL = []
+            nomeentrada = arq.readline().replace("\n","")[9:]
+            entrada = nomeentrada[13:]
+            experimentos[nomearquivo][entrada] = {'nome' : nomeentrada, 'pi' : {}, 'full' : {}}
         elif linha == "*":
             threads = arq.readline().replace("\n","")
-            execucoes = []
+            execucoesPI = []
+            execucoesFULL = []
             for exe in range(5):
+                #LEITURA DAS 5 ITERACOES
                 paramountiteration = int(arq.readline().replace("\n",""))
-                iteracoes = [float(0.0)]*paramountiteration
+                dadosPI = [float(0.0)]*paramountiteration
                 for pi in range(paramountiteration):
                     i = arq.readline().split(";")
-                    iteracoes[pi] += float(i[1])
-                execucoes.append(iteracoes)
-            execucoes = ([(a+b+c+d+e)/5 for a, b, c, d, e in zip(execucoes[0], execucoes[1], execucoes[2], execucoes[3], execucoes[4])])
-            experimentos.append([threads,sum(execucoes),execucoes])
-            #iteracoes[:] = [float(i) / 5 for i in iteracoes]
-        elif linha == "!":
-            execucoes = []
-            for exe in range(5):
-                paramountiteration = int(arq.readline().replace("\n",""))
-                iteracoes = [float(0.0)]*paramountiteration
-                for pi in range(paramountiteration):
+                    dadosPI[pi] += float(i[1])
+                execucoesPI.append(dadosPI)
+                linha = arq.readline().replace("\n","")
+                #LEITIRA DAS 50 ITERACOES
+                total = int(arq.readline().replace("\n",""))
+                dadosFULL = [float(0.0)]*total
+                for t in range(total):
                     i = arq.readline().split(";")
-                    iteracoes[pi] = float(i[1])
-                execucoes.append(iteracoes)
-            execucoes = ([(a+b+c+d+e)/5 for a, b, c, d, e in zip(execucoes[0], execucoes[1], execucoes[2], execucoes[3], execucoes[4])])
-            experimentos.append(["final",sum(execucoes),execucoes])
-            entradas.append([entrada[7:],experimentos])
-        #a = raw_input();
-    maquinas.append([maquina[:-4],entradas]);
+                    dadosFULL[t] += float(i[1])
+                execucoesFULL.append(dadosFULL)
+            execucoesPI = ([(a+b+c+d+e)/5 for a, b, c, d, e in zip(execucoesPI[0], execucoesPI[1], execucoesPI[2], execucoesPI[3], execucoesPI[4])])
+            experimentosPI.append([threads,sum(execucoesPI),execucoesPI])
+            experimentos[nomearquivo][entrada]['pi'][threads] = {'n':threads, 'tempo':float(sum(execucoesPI)), 'iteracoes':execucoesPI}
+            execucoesFULL = ([(a+b+c+d+e)/5 for a, b, c, d, e in zip(execucoesFULL[0], execucoesFULL[1], execucoesFULL[2], execucoesFULL[3], execucoesFULL[4])])
+            experimentosFULL.append([threads,sum(execucoesFULL),execucoesFULL])
+            experimentos[nomearquivo][entrada]['full'][threads] = {'n':threads, 'tempo':float(sum(execucoesFULL)), 'iteracoes':execucoesFULL}
     arq.close()
 
-#maquinas - r5.24xlarge r5.12xlarge r5.4xlarge r5.2xlarge r5.xlarge r5.large
-#         - entradas - refseq00 refseq01
-#                    - experimentos - threads 2 4 8 16 32 64 48 96 (limite do numero de nucleos) final
-#                                   - tempo total
-#                                   - iteracoes - 1 2 3 4 5 , 1 ... 100
-#maquinas [nome, [entrada, [threads [tempo total, [1, 2, 3, 4, 5, ... 100]]]]]
-#maquinas[maquina][nome da maquina | entradas ][entrada][nome da entrada | experimentos][experimento][threads | tempo | iteracoes]
+pp.pprint(experimentos)
 
-precos = [["r5.large", 0.126],
-          ["r5.xlarge", 0.252],
-          ["r5.2xlarge", 0.504],
-          ["r5.4xlarge", 1.008],
-          ["r5.12xlarge", 3.024],
-          ["r5.24xlarge", 6.048]]
-iteracoes = ['1', '2', '3', '4', '5']
-colors = ['#e57914', '#1ca8ef', '#18ce64', '#ce18a9', '#d13714', '#aed114', '#f9bb7a', '#a55e13']
+colors = ('#e57914', '#18ce64', '#1ca8ef', '#ce18a9', '#d13714', '#aed114', '#f9bb7a', '#a55e13')
+
+
+#GRAFICO DE VALIDACAO DO PARAMOUNT ITERATION EM UMA INSTANCIA E ENTRADA PARA DIFERENTES THREADS
+#for instancia in experimentos:
+#    for entrada in experimentos[instancia]:
+#        for thread,color in zip(experimentos[instancia][entrada]['full'],colors):
+#            plt.plot(experimentos[instancia][entrada]['full'][thread]['iteracoes'], '-', label=str(thread)+" threads" , color=color)
+#        plt.xlabel('iteracoes')
+#        plt.ylabel('tempo(s)')
+#        plt.title("Tempo de execucao de 50 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n na instancia " + instancia + " com diferentes numero de threads")
+#        plt.legend(loc='upper left')
+#        plt.show()
+#        plt.savefig(instancia+'-'+entrada+'-pi5.png')
+
+for entrada in entradaV:
+    for thread in threadV:
+        for instancia in experimentos:
+            if int(thread) <= dados[instancia]['numerocores']:
+            print type(thread)
+
+exit(1)
+for instancia in instancias:
+    for entrada in instancia[1]:
+        for experimentoTOTAL,color in zip(entrada[2],colors):
+            print ""#plt.plot(experimentoTOTAL[2], 'o-', label=str(experimentoTOTAL[0])+" threads" , color=color)
+        #plt.xlabel('iteracoes')
+        #plt.ylabel('tempo(s)')
+        #plt.title("Tempo de execucao de 50 iteracoes para " + entrada[0] + "\n na instancia " + instancia[0] + " com diferentes numero de threads")
+        #plt.legend(loc='upper left')
+        #plt.show()
+        #plt.savefig(maquina[0]+'-'+entrada[0]+'-pi5.png')
+
 melhormaquina = []
+threads = [2,4,8,16,32,48,64,96]
+#GRAFICO DE VALIDACAO DO PARAMOUNT ITERATION EM UMA THREAD E ENTRADA PARA DIFERENTES INSTANCIAS
+for thread in [2,4,8,16,32,48,64,96]:
+    for i in range(len(instancias[1])):
+        #print instancias[i][1][0]
+        for j in range(len(instancias[i][1])):
+            for k in range(len(instancias[i][1][j][1])):
+                if int(instancias[i][1][j][1][k][0]) == thread:
+                    print instancias[i][1][j][1][k]
+            #print instancias[i][1]
+            #print instancias[i][1][j]
+            #print instancias[i][1][j][0]
+                    entr = [entrada[2] for entrada in instancias[i][1][j][1]]
+
+            print entr
+            print "*"
+    print ""
+    print ""
+        #print entr;
+
+exit();
+
+
 for maquina in maquinas:
     melhorentrada = []
     for entrada in maquina[1]:
