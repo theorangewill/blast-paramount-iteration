@@ -92,11 +92,11 @@ for instancia in experimentos:
             plt.plot(experimentos[instancia][entrada]['full'][thread]['iteracoes'], '-', label=str(thread)+" threads" , color=color)
         plt.xlabel('iteracoes')
         plt.ylabel('tempo(s)')
-        #plt.title("Tempo de execucao de 50 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n na instancia " + instancia + " com diferentes numero de threads")
+        plt.title("Tempo de execucao de 50 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n na instancia " + instancia + " com diferentes numero de threads")
         plt.legend(loc='upper left')
         plt.savefig('graficos/'+entrada+'-'+instancia.replace(".","")+'-validinstance.svg', format="svg")
-        #plt.show()
-        plt.clf()
+        plt.show()
+        #plt.clf()
 
         tempo = np.inf
         melhor = []
@@ -121,11 +121,11 @@ for entrada in entradaV:
                 plt.plot(experimentos[instancia][entrada]['full'][thread]['iteracoes'], '-', label=instancia, color=color)
         plt.xlabel('iteracoes')
         plt.ylabel('tempo(s)')
-        #plt.title("Tempo de execucao de 50 iteracoes para " + experimentos['r5.xlarge'][entrada]['nome'] + "\n com " + thread + " threads para diferentes instancias")
+        plt.title("Tempo de execucao de 50 iteracoes para " + experimentos['r5.xlarge'][entrada]['nome'] + "\n com " + thread + " threads para diferentes instancias")
         plt.legend(loc='upper left')
         plt.savefig('graficos/'+entrada+'-'+thread+'-validthread.svg', format="svg")
-        #plt.show()
-        plt.clf()
+        plt.show()
+        #plt.clf()
 
         tempo = np.inf
         melhor = []
@@ -200,11 +200,11 @@ for instancia in experimentos:
         plt.plot([item[0] for item in tempos], [item[1] for item in tempos], 'o-', color=colors[0])
         plt.xlabel('numero de threads')
         plt.ylabel('tempo(s)')
-        #plt.title("Tempo de execucao de 5 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n na instancia " + instancia + " com diferentes numero de threads")
+        plt.title("Tempo de execucao de 5 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n na instancia " + instancia + " com diferentes numero de threads")
         #plt.legend(loc='upper left')
         plt.savefig('graficos/'+entrada+'-'+instancia.replace(".","")+'-timing.svg', format="svg")
-        #plt.show()
-        plt.clf()
+        plt.show()
+        #plt.clf()
 
         tempo = np.inf
         melhorpi = ['0',1]
@@ -226,7 +226,6 @@ for instancia in experimentos:
             for thread in experimentos[instancia][entrada]['pi']:
                 print "\tSpeedup de " + melhorfull[0] + " threads(" + str(melhorfull[1]) + ") em relação a " + thread + " threads (" + str(experimentos[instancia][entrada]['full'][thread]['tempo']) + "): " + str(experimentos[instancia][entrada]['full'][thread]['tempo']/melhorfull[1])
                 print "\t\t\tO mesmo não é visto no Paramount Iteration com o " + melhorpi[0] + " threads (" + str(melhorpi[1]) + ") em relação a " + thread + " threads (" + str(experimentos[instancia][entrada]['pi'][thread]['tempo']) + "): " + str(experimentos[instancia][entrada]['pi'][thread]['tempo']/melhorpi[1])
-
 
         else:
             for thread in experimentos[instancia][entrada]['pi']:
@@ -263,39 +262,6 @@ for entrada in entradaV:
         for thread in experimentos[instancia][entrada]['pi']:
             print "\t\t" + instancia + " com " + thread + " threads (" + str(experimentos[instancia][entrada]['pi'][thread]['tempo']) + ") = " +  str(experimentos[instancia][entrada]['pi'][thread]['tempo']/melhorpi[2])
 
-    print "\nOVEHEAD DE PRECO"
-    custo = np.inf
-    for instancia in experimentos:
-        for thread in experimentos[instancia][entrada]['pi']:
-            if custo >= experimentos[instancia][entrada]['pi'][thread]['tempo']*dados[instancia]['preco']:
-                custo = experimentos[instancia][entrada]['pi'][thread]['tempo']*dados[instancia]['preco']
-                melhorpi = [instancia,thread,custo,experimentos[instancia][entrada]['pi'][thread]['tempo']]
-    custo = np.inf
-    for instancia in experimentos:
-        for thread in experimentos[instancia][entrada]['full']:
-            if custo >= experimentos[instancia][entrada]['full'][thread]['tempo']*dados[instancia]['preco']:
-                custo = experimentos[instancia][entrada]['full'][thread]['tempo']*dados[instancia]['preco']
-                melhorfull = [instancia,thread,custo,experimentos[instancia][entrada]['full'][thread]['tempo']]
-    if melhorfull[0] != melhorpi[0]:
-        print "\tA MELHOR INSTANCIA FOI DIFERENTE"
-    if melhorfull[1] != melhorpi[1]:
-        print "\tA MELHOR THREAD FOI DIFERENTE"
-    print "\tA MELHOR CONFIGURACAO FULL " + melhorfull[0] + "-" + melhorfull[1] + " = " + str(melhorfull[2]) + " a um tempo de " + str(melhorfull[3])
-    print "\tA MELHOR CONFIGURACAO PI " + melhorpi[0] + "-" + melhorpi[1] + " = " + str(melhorpi[2]) + " a um tempo de " + str(melhorpi[3])
-
-    print "\tOVERHEAD COM PI"
-    for instancia in experimentos:
-        for thread in experimentos[instancia][entrada]['pi']:
-            print "\t\t" + instancia + " com " + thread + " threads (" + str(experimentos[instancia][entrada]['pi'][thread]['tempo']) + ") = " +  str(experimentos[instancia][entrada]['pi'][thread]['tempo']*dados[instancia]['preco']/(melhorpi[2]))
-
-    print "\tOVERHEAD COM FULL"
-    for instancia in experimentos:
-        for thread in experimentos[instancia][entrada]['full']:
-            print "\t\t" + instancia + " com " + thread + " threads (" + str(experimentos[instancia][entrada]['full'][thread]['tempo']) + ") = " +  str(experimentos[instancia][entrada]['full'][thread]['tempo']*dados[instancia]['preco']/(melhorfull[2]))
-
-
-
-
 print "--------------------------------------------------------------"
 #GRAFICO DO TEMPO PARA TODAS INSTANCIAS PARA DIFERENTES NUMEROS DE THREADS
 for entrada in entradaV:
@@ -307,11 +273,11 @@ for entrada in entradaV:
         plt.plot([item[0] for item in tempos], [item[1] for item in tempos], 'o-', label=instancia, color=color)
     plt.xlabel('numero de threads')
     plt.ylabel('tempo(s)')
-    #plt.title("Tempo de execucao de 5 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n em todas as instancias com diferentes numero de threads")
+    plt.title("Tempo de execucao de 5 iteracoes para " + experimentos[instancia][entrada]['nome'] + "\n em todas as instancias com diferentes numero de threads")
     plt.legend(loc='upper right')
     plt.savefig('graficos/'+entrada+'-timing.svg', format="svg")
-    #plt.show()
-    plt.clf()
+    plt.show()
+    #plt.clf()
 
 
 #GRAFICO DO CUSTO BENEFGIFICIO
@@ -332,10 +298,10 @@ for entrada in entradaV:
         #plt.annotate( instancia+'-'+melhortempo[0]+'-threads', (melhortempo[1]*dados[instancia]['preco'], melhortempo[1]) )
     plt.xlabel('Custo (USD)')
     plt.ylabel('tempo(s)')
-    #plt.title("Custo beneficio para " + experimentos[instancia][entrada]['nome'] + "\n para os melhores desempenhos de todas as instancias")
+    plt.title("Custo beneficio para " + experimentos[instancia][entrada]['nome'] + "\n para os melhores desempenhos de todas as instancias")
     plt.legend(loc='upper right')
     plt.savefig('graficos/'+entrada+'-custobeneficio.svg', format="svg")
-    #plt.show()
+    plt.show()
     plt.clf()
     for instancia,color in zip(experimentos,colors):
         tempo = np.inf
@@ -349,8 +315,8 @@ for entrada in entradaV:
         #plt.annotate( instancia+'-'+melhortempo[0]+'-threads', (melhortempo[1]*dados[instancia]['preco'], melhortempo[1]) )
     plt.xlabel('Custo (USD)')
     plt.ylabel('tempo(s)')
-    #plt.title("Custo beneficio para " + experimentos[instancia][entrada]['nome'] + "\n para os melhores desempenhos de todas as instancias")
+    plt.title("Custo beneficio para " + experimentos[instancia][entrada]['nome'] + "\n para os melhores desempenhos de todas as instancias")
     plt.legend(loc='upper right')
     plt.savefig('graficos/'+entrada+'-custobeneficio-full.svg', format="svg")
-    #plt.show()
+    plt.show()
     plt.clf()
