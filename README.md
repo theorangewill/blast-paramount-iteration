@@ -7,11 +7,17 @@ Na compilação é possível indicar o número de iterações a serem realizadas
     make -j PARAMOUNTITERATION=5
 
 Aqui há quatro scripts e uma receita para o Singularity criar uma imagem de container.
+
     - singularity-install.sh é responsável por instalar o Singularity e seus pré-requisitos, criar a imagem e baixar as bases de dados refseq\_rna.00 e refseq\_rna.01.
+    
     - blast-recipe é a receita da imagem, onde é instalada as requisições para o BLAST e a também a própria ferramenta com PARAMOUNTITERATION=5 e PARAMOUNTITERATION=50
+    
     - run-blast.sh executa os experimentos, variando o número de threads. Cada execução é realizada 5 vezes.
+    
     - script-gerar-graficos.py gera gráficos e outros dados a fim de analisar resultados.
+    
     - auto_script.sh foi utilizado para realizar os experimentos de forma automatizada, desligando a instância ao fim do experimento.
+    
 ## Receita
 A receita desenvolvida compila duas versões do blastn. Uma com PARAMOUNTITERATION=5 (blastnpi) e outra com PARAMOUNTITERATION=50 (blastn)
 
