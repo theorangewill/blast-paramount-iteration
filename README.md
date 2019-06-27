@@ -27,6 +27,11 @@ O script varia o número de threads em potência de dois até o limite de núcle
 ## Script de Geração de Gráficos
 O script recebe todos os arquivos de saída do script de execução e constrói diversos gráficos. Um comparando a execução de 100 iterações com 5 iterações, outro comparando a execução de 5 iteraçes com diferentes números de threads e outro comparando o custo benefício entre as máquinas.
 
+# Dados de entrada
+
+Os dados de entrada são baixados do link ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/dna/ e ftp://ftp.ensembl.org/pub/release-96/fasta/homo_sapiens/cds/.
+Instruções de quais foram baixados e como foram construídos estão presentes em singularity-install.sh
+
 # Rodando os experimentos
 É recomendado executar os experimentos em um ambiente com armazenamento mínimo de 30GB. Deve-se realizar os experimentos no sistema operacional Ubuntu 18.04.
 
