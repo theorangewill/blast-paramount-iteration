@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: ubuntu:latest
+
+%files
+	ncbi-blast-2.9.0+-src.tar.xz
+
+%post
+	apt update -qq
+	apt-get install -y tzdata
+	apt-get install -y build-essential wget make gcc cpio
+	apt-get install -y python-pip python-tk
+	pip install matplotlib scipy
+	tar xf ncbi-blast-2.9.0+-src.tar.xz
+	rm ncbi-blast-2.9.0+-src.tar.xz
+	cd ncbi-blast-2.9.0+-src/c++/
+	./configure
+	make -j PARAMOUNTITERATION=0
+	make install
