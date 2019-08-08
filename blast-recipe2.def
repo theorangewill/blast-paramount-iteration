@@ -14,5 +14,5 @@ From: ubuntu:latest
 	rm ncbi-blast-2.9.0+-src.tar.xz
 	cd ncbi-blast-2.9.0+-src/c++/
 	./configure
-	make -j PARAMOUNTITERATION=0
+	make -j PARAMOUNTITERATION=800
 	make install
