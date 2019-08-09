@@ -36,7 +36,7 @@ cd ${DIRETORIO}
 #CRIAR IMAGEM A PARTIR DA RECIPE
 echo "CRIANDO IMAGEM"
 tar xf ncbi-blast-2.9.0+-src.tar.xz
-sudo singularity build blast-imagem.img blast-recipe2.def
+sudo singularity build blast-imagem2.img blast-recipe2.def
 
 #BAIXANDO BASES DE DADOS
 echo "BAIXANDO BASES DE DADOS"
