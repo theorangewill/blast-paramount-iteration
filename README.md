@@ -40,3 +40,6 @@ Para cada ambiente computacional deve-se clonar este repositório e executar:
     ./singularity-install.sh
     sudo singularity exec blast-imagem.img ./run-blast.sh > saida.out
     python script-gerar-graficos.py saida.out saida2.out saida3.out
+    
+# "Aplicação da técnica Paramount Iteration nas aplicações BLAST e DNN-ROM na nuvem computacional
+Os experimentos do estudo utilizam das versões "2" dos arquivos e scripts.
