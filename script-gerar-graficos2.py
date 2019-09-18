@@ -4,16 +4,9 @@ import sys
 import matplotlib.pyplot as plt
 import pprint
 import numpy as np
-import scipy.stats
+#import scipy.stats
 import os
 import operator
-
-def mean_confidence_interval(data, confidence=0.95):
-    a = 1.0 * np.array(data)
-    n = len(a)
-    m, se = np.mean(a), scipy.stats.sem(a)
-    h = se * scipy.stats.t.ppf((1 + confidence) / 2., n-1)
-    return h
 
 try:
     os.mkdir("graficos")
@@ -35,10 +28,8 @@ instancias =  {'m5.2xlarge'  :  {'preco':0.384/3600},
           'r4.2xlarge'  :  {'preco':0.532/3600},
           'x1e.2xlarge'  :  {'preco':1.668/3600}}
 
-instanciaV = ('m5.2xlarge', 'm5a.2xlarge', 'm4.2xlarge', 'c5.4xlarge', 'r5.xlarge', 'r5.2xlarge', 'r5.4xlarge', 'r5a.xlarge', 'r5a.2xlarge', 'r4.xlarge', 'r4.2xlarge', 'x1e2.xlarge')
-colors = ('#e57914', '#18ce64', '#1ca8ef', '#ce18a9', '#d13714', '#aed114', '#f9bb7a', '#a55e13',
-            '#e3c712', '#85e312', '#3a21cc', '#cc23c4', '#36d9d1', '#a437de')
-
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'darkviolet', 'lawngreen', 'darkturquoise', 'deeppink', 'teal', 'gold', 'salmon', 'saddlebrown']
+symbols = ['o', 'v', '^', '<', '>', 's', '*', 'X', 'D', '1', 'P', '+']
 if len(sys.argv) == 1:
     print "ERRO: não há arquivo para leitura"
     print("\tpython script-gerar-graficos2.py <nome arquivo>")
@@ -94,17 +85,21 @@ for arquivo in sys.argv[1:]:
 
 
 ordenado = sorted(temposfull.items(), key=operator.itemgetter(1))
-for instancia,color,i in zip(ordenado,colors,range(len(instancias))):
-    if i%3 != 0:
-        continue
-    if 'full' in instancias[instancia[0]]:
-        plt.plot(instancias[instancia[0]]['full'], '-', label=str(instancia[0]))#, color=color)
-plt.xlabel('iteracoes')
-plt.ylabel('tempo(s)')
+pp.pprint(ordenado)
+j=0
+for instancia,i in zip(ordenado,range(len(instancias))):
+    if 'full' in instancias[instancia[0]] and (i==0 or i==len(instancias)-1):# or i==np.floor(len(instancias)/2)):
+        plt.plot(instancias[instancia[0]]['full'], '-', label=str(instancia[0]), color=colors[j])
+        j = j + 1
+
+plt.xlabel(u'Iteração')
+plt.ylabel(u'Tempo de execução [s]')
 #plt.title("Tempo de execucao de 400 iteracoes para as diversas instancias")
 plt.legend(loc='upper left')
 plt.savefig('graficos/execucaototal.svg', format="svg")
-plt.show()
+
+#plt.show()
+plt.clf()
 
 overhead1 = []
 overhead5 = []
@@ -201,21 +196,42 @@ for o in range(len(ordenadocusto)):
 for linha in tabela:
     print("\t\t\\texttt{" + str(linha[0]) + "} & $" + str("{0:.2f}".format(round(linha[1],2))) + "$ & $" + str("{0:.2f}".format(round(linha[2],2))) + "$ & $" + str("{0:.2f}".format(round(linha[3],2))) + "$ & $" + str("{0:.2f}".format(round(linha[4],2))) + "$\\\\\\hline" )
 
-
-for o in range(len(ordenadocusto)):
+for o,color,symbol in zip(range(len(ordenadocusto)),colors,symbols):
     for t in ordenado:
         if ordenadocusto[o][0] == t[0]:
             tempo = t[1]
             break
-    plt.scatter(ordenadocusto[o][1], tempo, label= ordenadocusto[o][0])
+    plt.scatter(ordenadocusto[o][1], tempo, label= ordenadocusto[o][0],color=color,marker=symbol)
+    #if ordenadocusto[o][0] in ['c5.4xlarge', 'm5.2xlarge', 'r5a.xlarge', 'r4.xlarge']:
+    #    plt.arrow(ordenadocusto[o][1]-0.1, tempo,0.2,0.2)
+    #if ordenadocusto[o][0] ==  'x1e.2xlarge':
+    #    plt.annotate('', xy=(ordenadocusto[o][1], tempo), xytext=(3, 1.5), arrowprops=dict(facecolor='red', width=4, headwidth=14, headlength=14, shrink=5))
+plt.ylabel(u'Tempo de execução [s]')
+#plt.title("Custo beneficio")
+plt.legend(loc='upper right', ncol=2)
+plt.savefig('graficos/custobeneficio.svg', format="svg")
+plt.show()
+plt.clf()
+
+
+
+for o,color,symbol in zip(range(len(ordenadocusto)),colors,symbols):
+    for t in ordenado10:
+        if ordenadocusto[o][0] == t[0]:
+            tempo = t[1]
+            break
+    for t in ordenadocusto10:
+        if ordenadocusto[o][0] == t[0]:
+            custo = t[1]
+    plt.scatter(custo, tempo, label= ordenadocusto[o][0],color=color,marker=symbol)
     #    plt.errorbar( experimentos[instancia][entrada]['pi'][thread]['tempo']*dados[instancia]['preco'], experimentos[instancia][entrada]['pi'][thread]['tempo'], experimentos[instancia][entrada]['pi'][thread]['erro'], experimentos[instancia][entrada]['pi'][thread]['erro']*dados[instancia]['preco'], label=instancia+'-'+thread+'-threads', color=colors[i], capsize=3, marker='.')
     #plt.errorbar( melhortempo[1]*dados[instancia]['preco'], melhortempo[1], melhortempo[2], melhortempo[2]*dados[instancia]['preco'], label=instancia+'-'+melhortempo[0]+'-threads', color=color, capsize=3, marker='.')
 
     #plt.annotate( instancia+'-'+melhortempo[0]+'-threads', (melhortempo[1]*dados[instancia]['preco'], melhortempo[1]) )
-plt.xlabel('Custo (USD)')
-plt.ylabel('tempo(s)')
+plt.xlabel(u'Custo [USD]')
+plt.ylabel(u'Tempo de execução [s]')
 #plt.title("Custo beneficio")
-plt.legend(loc='upper right')
-plt.savefig('graficos/custobeneficio.svg', format="svg")
-plt.show()
+plt.legend(loc='upper right', ncol=2)
+plt.savefig('graficos/custobeneficio-10ite.svg', format="svg")
+#plt.show()
 plt.clf()
